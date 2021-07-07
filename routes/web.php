@@ -26,3 +26,5 @@ Route::get('/boutique/{slug}',[ProductController::class,"show"])->name('products
 Route::post('/panier/ajouter',[CartController::class,"store"])->name('cart.store');
 // Dans l'index on affiche le panier avec tous nos produits
 Route::get('/panier',[CartController::class,"index"])->name('cart.index');
+Route::post('/panier/{rowId}',[CartController::class,"destroy"])->name(('cart.destroy'));
+// La route et récupère l'id dans le controller la function delete

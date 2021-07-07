@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     public function getPrice()
     {
-        $price = $this->price / 100;
+        $price = $this->price / 100 *1.21;
 
         return number_format($price, 2, ',', ' ') . ' €';
     }

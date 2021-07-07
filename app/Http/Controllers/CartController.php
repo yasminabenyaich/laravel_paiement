@@ -15,7 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return view('cart.index');
     }
 
     /**
@@ -35,7 +35,18 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { // Méthode find pour retrouver un modèle via l'id
+    
+    {
+        // Condition qui permet d'eviter d'avoir plusieurs mêmes articles => Il fait une recherche de l'id et ensuite si il retrouve => Il va retourner que le produit a déjà été ajouter
+        $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
+            return $cartItem->id == $request->product_id;
+        });
+
+        if ($duplicata->isNotEmpty()) {
+            return redirect()->route('products.index')->with('success', 'Le produit a déjà été ajouté.');
+        }
+        
+        // Méthode find pour retrouver un modèle via l'id
         $product = Product::find($request->product_id);
 
         Cart::add($product->id, $product->title, 1, $product->price)
@@ -84,8 +95,13 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
-        //
+    
+        Cart::remove($rowId);
+
+        return back()->with('success', 'Le produit a été supprimé.');
+
+        // Il supprimer(méthode remove) et retourne que l'article a été supprimé
     }
 }
