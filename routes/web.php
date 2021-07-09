@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,6 @@ Route::post('/panier/ajouter',[CartController::class,"store"])->name('cart.store
 Route::get('/panier',[CartController::class,"index"])->name('cart.index');
 Route::post('/panier/{rowId}',[CartController::class,"destroy"])->name(('cart.destroy'));
 // La route et récupère l'id dans le controller la function delete
+
+/* Checkout Routes */
+Route::get('/paiement', [CheckoutController::class, 'index'])->name('checkout.index');
