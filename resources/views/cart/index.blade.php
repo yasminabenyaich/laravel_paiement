@@ -46,9 +46,8 @@
                                 <td class="border-0 align-middle"><strong>{{ $product->model->getPrice() }}</strong></td>
                                 <td class="border-0 align-middle"><strong>1</strong></td>
                                 <td class="border-0 align-middle">
-                                    <form action='/panier/{{ $product->id }}' method="POST">
+                                    <form action='/panier/{{ $product->rowId }}' method="POST">
                                         @csrf
-                                        @method('DELETE')
                         
                                         <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                     </form>
